@@ -1,9 +1,9 @@
 // TASK: Попробуйте изменять переменные и понаблюдать, что получится.
 const secure = true;
-const sendSuccessfully = false;
+const sendSuccessfully = true;
 
 const createConnection = () => {
-  console.log('Opening connection...');
+  console.log("Opening connection...");
 
   return new Promise((resolve) => {
     // выполняем асинхронный код внутри промиса и вызываем resolve() или reject()
@@ -24,7 +24,7 @@ const createConnection = () => {
 };
 
 function prepareData(data) {
-  console.log('Preparing data...');
+  console.log("Preparing data...");
 
   return new Promise((resolve) => {
     // выполняем асинхронный код внутри промиса и вызываем resolve() или reject()
@@ -34,7 +34,7 @@ function prepareData(data) {
 }
 
 function sendData(connection, data) {
-  console.log('Sending data...');
+  console.log("Sending data...");
 
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -42,7 +42,7 @@ function sendData(connection, data) {
         return reject(new Error("Can't send data with insecure connection"));
       }
       if (!connection.send(data)) {
-        return reject(new Error('Error during sending'));
+        return reject(new Error("Error during sending"));
       }
       resolve(data);
     }, 2000);
@@ -54,15 +54,14 @@ async function main() {
     const connection = await createConnection();
     const data = {
       status: 200,
-      message: 'Hello, mister!',
+      message: "Hello, mister!",
       prepared: false,
     };
     const prepared = await prepareData(data, connection);
     const serialized = await connection.serializeData(prepared);
     await sendData(connection, serialized);
-    console.log('Sent');
-  }
-  catch (err) {
+    console.log("Sent");
+  } catch (err) {
     console.error(err);
   }
 }
