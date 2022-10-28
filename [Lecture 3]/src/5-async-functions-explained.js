@@ -58,7 +58,7 @@ async function main() {
       prepared: false,
     };
     const prepared = await prepareData(data, connection);
-    const serialized = await connection.serializeData(prepared);
+    const serialized = connection.serializeData(prepared);
     await sendData(connection, serialized);
     console.log("Sent");
   } catch (err) {
@@ -67,33 +67,3 @@ async function main() {
 }
 
 main();
-
-/*
-createConnection()
-  .then((connection) => {
-    const data = {
-      status: 200,
-      message: 'Hello, mister!',
-      prepared: false,
-    };
-
-    const promise = prepareData(data, connection)
-      .then((prepared) => connection.serializeData(prepared))
-      .then((serialized) => {
-        return {
-          data: serialized,
-          connection,
-        };
-      });
-
-    return promise;
-  })
-  .then((result) => {
-    const { data, connection } = result;
-    return sendData(connection, data);
-  })
-  .then(() => {
-    console.log('Sent');
-  })
-  .catch(console.error);
-*/
